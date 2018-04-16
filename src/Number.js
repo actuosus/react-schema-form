@@ -49,7 +49,7 @@ class Number extends React.Component {
             });
             this.props.onChangeValidate(e);
         } else {
-            this.refs.numberField.value = this.state.lastSuccessfulValue;
+            this.numberField.value = this.state.lastSuccessfulValue;
         }
     }
 
@@ -58,12 +58,12 @@ class Number extends React.Component {
             <div className={this.props.form.htmlClass}>
                 <TextField
                     type={this.props.form.type}
-                    floatingLabelText={this.props.form.title}
-                    hintText={this.props.form.placeholder}
+                    label={this.props.form.title}
+                    placeholder={this.props.form.placeholder}
                     errorText={this.props.error}
                     onChange={this.preValidationCheck}
                     value={this.state.lastSuccessfulValue}
-                    ref="numberField"
+                    ref={(_) => this.numberField = _}
                     disabled={this.props.form.readonly}
                     style={this.props.form.style || {width: '100%'}}/>
             </div>

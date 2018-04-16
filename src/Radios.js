@@ -3,28 +3,29 @@ import utils from './utils';
 import classNames from 'classnames';
 import ComposedComponent from './ComposedComponent';
 
-import RadioButton from 'material-ui/RadioButton';
-import RadioButtonGroup from 'material-ui/RadioButton/RadioButtonGroup';
+import {FormControlLabel} from 'material-ui';
+import Radio, { RadioGroup } from 'material-ui/Radio';
 
 class Radios extends React.Component {
 
     render() {
         let items = this.props.form.titleMap.map(function(item, index) {
             return (
-                <RadioButton label={item.name}
-                             value={item.value}
-                             key={index}
-                             disabled={this.props.form.readonly}
-                    />
+              <FormControlLabel key={index}
+                                value={item.value}
+                                control={<Radio color="primary" />}
+                                label={item.name}
+                                disabled={this.props.form.readonly}
+              />
             )
         }.bind(this));
 
         return (
             <span className={this.props.form.htmlClass}>
               <label className="control-lable">{this.props.form.title}</label>
-              <RadioButtonGroup defaultSelected={this.props.value} name={this.props.form.title} onChange={this.props.onChangeValidate}>
+              <RadioGroup defaultSelected={this.props.value} name={this.props.form.title} onChange={this.props.onChangeValidate}>
                   {items}
-              </RadioButtonGroup>
+              </RadioGroup>
             </span>
         );
     }
