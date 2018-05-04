@@ -1,5 +1,4 @@
 {
-  // I want to use babel-eslint for parsing!
   "parser": "babel-eslint",
 
   "env": {
@@ -8,7 +7,6 @@
     "jasmine": true
   },
 
-  // To give you an idea how to override rule options:
   "rules": {
     "quotes": [2, "single"],
     "strict": [2, "never"],
@@ -19,7 +17,6 @@
 
     "no-alert": 0,
 
-    // react
     "react/display-name": 0,
     "react/jsx-boolean-value": 1,
     "react/jsx-no-undef": 1,
@@ -41,7 +38,5 @@
     "modules": true
   },
 
-  "plugins": [
-    "react"
-  ]
+  "plugins": ["react"]
 }

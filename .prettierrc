@@ -1,0 +1,17 @@
+{
+  "insertPragma": true,
+  "tabWidth": 4,
+  "semi": true,
+  "singleQuote": true,
+  "useTabs": false,
+  "overrides": [
+    {
+      "files": [".prettierrc", ".eslintrc"],
+      "options": {
+        "insertPragma": false,
+        "parser": "json",
+        "tabWidth": 2
+      }
+    }
+  ]
+}
