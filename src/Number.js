@@ -1,51 +1,77 @@
 /**
  * Created by steve on 15/09/15.
+ *
+ * @format
  */
-import React from 'react';
+
+import React, { SyntheticEvent } from 'react';
+import PropTypes from 'prop-types';
 import ComposedComponent from './ComposedComponent';
-import TextField from 'material-ui/TextField';
+import {
+    FormControl,
+    FormHelperText,
+    Input,
+    InputLabel,
+    TextField
+} from 'material-ui';
 
 /**
  * There is no default number picker as part of Material-UI.
  * Instead, use a TextField and validate.
  */
 class Number extends React.Component {
-
     constructor(props) {
         super(props);
         this.preValidationCheck = this.preValidationCheck.bind(this);
         this.state = {
-            lastSuccessfulValue : this.props.value
-        }
+            lastSuccessfulValue: this.props.value
+        };
     }
 
+    static propTypes = {
+        value: PropTypes.string,
+        error: PropTypes.string,
+        form: PropTypes.object
+    };
+
+    /**
+     * @param {Object} nextProps
+     */
     componentWillReceiveProps(nextProps) {
-      this.setState({
-        lastSuccessfulValue: nextProps.value
-      });
+        this.setState({
+            lastSuccessfulValue: nextProps.value
+        });
     }
 
+    /**
+     * @param {string} n
+     */
     isNumeric(n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
     }
 
+    /**
+     * @param {string} n
+     */
     isEmpty(n) {
-        return (!n || 0 === n.length);
+        return !n || 0 === n.length;
     }
 
     /**
      * Prevent the field from accepting non-numeric characters.
-     * @param e
+     * @param {SyntheticEvent} e
      */
-    preValidationCheck(e) {
-        if (this.isNumeric(e.target.value)) {
+    handleChange(e) {
+        const { value } = e.target;
+
+        if (this.isNumeric(value)) {
             this.setState({
-                lastSuccessfulValue: e.target.value
+                lastSuccessfulValue: value
             });
             this.props.onChangeValidate(e);
-        } else if (this.isEmpty(e.target.value)) {
+        } else if (this.isEmpty(value)) {
             this.setState({
-                lastSuccessfulValue: e.target.value
+                lastSuccessfulValue: value
             });
             this.props.onChangeValidate(e);
         } else {
@@ -54,19 +80,29 @@ class Number extends React.Component {
     }
 
     render() {
+        const isError = new Boolean(this.props.error);
+
         return (
-            <div className={this.props.form.htmlClass}>
-                <TextField
+            <FormControl error={isError} className={this.props.form.htmlClass}>
+                <InputLabel htmlFor="name-error">
+                    {this.props.form.title}
+                </InputLabel>
+                <Input
                     type={this.props.form.type}
                     label={this.props.form.title}
                     placeholder={this.props.form.placeholder}
+                    error={isError}
                     errorText={this.props.error}
-                    onChange={this.preValidationCheck}
+                    onChange={this.handleChange}
                     value={this.state.lastSuccessfulValue}
-                    ref={(_) => this.numberField = _}
+                    ref={_ => (this.numberField = _)}
                     disabled={this.props.form.readonly}
-                    style={this.props.form.style || {width: '100%'}}/>
-            </div>
+                    style={this.props.form.style || { width: '100%' }}
+                />
+                <FormHelperText id="name-error-text">
+                    {this.props.error}
+                </FormHelperText>
+            </FormControl>
         );
     }
 }
