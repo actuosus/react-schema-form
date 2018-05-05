@@ -80,7 +80,7 @@ class Number extends React.Component {
     }
 
     render() {
-        const isError = new Boolean(this.props.error);
+        const isError = Boolean(this.props.error);
 
         return (
             <FormControl error={isError} className={this.props.form.htmlClass}>
