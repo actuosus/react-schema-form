@@ -22,7 +22,7 @@ import {
 class Number extends React.Component {
     constructor(props) {
         super(props);
-        this.preValidationCheck = this.preValidationCheck.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.state = {
             lastSuccessfulValue: this.props.value
         };
