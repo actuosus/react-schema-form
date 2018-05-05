@@ -92,7 +92,6 @@ class Number extends React.Component {
                     label={this.props.form.title}
                     placeholder={this.props.form.placeholder}
                     error={isError}
-                    errorText={this.props.error}
                     onChange={this.handleChange}
                     value={this.state.lastSuccessfulValue}
                     ref={_ => (this.numberField = _)}
